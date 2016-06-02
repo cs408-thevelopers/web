@@ -10,7 +10,7 @@ def randname
   (0...8).map { (65 + rand(26)).chr }.join
 end
 
-1000.times  do |u|
+100.times  do |u|
   name = randname
   status = %i(student assistant instructor).sample
   User.create name: name, status: status, username: name, password: name

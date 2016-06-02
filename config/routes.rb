@@ -54,5 +54,9 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   root 'main#index'
-  
+  get 'login' => 'main#login'  
+  get 'class/:id/' => 'klass#desc'
+  get 'class/:id/desc' => 'klass#desc'
+  get 'class/:id/part' => 'klass#part'
+  get 'lesson/:id' => 'lesson#index'
 end

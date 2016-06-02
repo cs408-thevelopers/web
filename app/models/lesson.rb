@@ -1,4 +1,8 @@
 class Lesson < ActiveRecord::Base
   belongs_to :klass
-  has_many :images
+  def images
+    Dir["#{Rails.root}/public/images/#{id}/*"].map do |path|
+      "#{id}/#{File.basename path}"
+    end
+  end
 end

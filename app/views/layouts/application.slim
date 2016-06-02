@@ -2,11 +2,112 @@ doctype html
 html
   head
     title CS408
-
-    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" /
     =stylesheet_link_tag "application"
     script src="https://code.jquery.com/jquery-2.2.3.min.js"
-    script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"
     meta charset="utf-8" /
+    =javascript_include_tag "application"
+
   body
-    = yield
+    #wrapper
+      nav.navbar.navbar-default.navbar-static-top role="navigation" style=("margin-bottom: 0") 
+        .navbar-header
+          button.navbar-toggle data-target=".navbar-collapse" data-toggle="collapse" type="button" 
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand href="index.html"  Progressive Chalkboard Recorder
+
+        ul.nav.navbar-top-links.navbar-right
+          li.dropdown
+            a.dropdown-toggle data-toggle="dropdown" href="#" 
+              i.fa.fa-user.fa-fw
+              i.fa.fa-caret-down
+            ul.dropdown-menu.dropdown-user
+              li
+                a href="#" 
+                  i.fa.fa-user.fa-fw
+                  | User Profile
+              li
+                a href="#" 
+                  i.fa.fa-gear.fa-fw
+                  | Settings
+              li.divider
+              li
+                a href="logout" 
+                  i.fa.fa-sign-out.fa-fw
+                  | Logout
+
+        .navbar-default.sidebar role="navigation" 
+          .sidebar-nav.navbar-collapse
+            ul.metisMenu#side-menu.nav
+              - Klass.find_each.with_index do |klass|
+                li
+                  a href="#" aria-expanded="#{klass == @klass}"
+                    i.fa.fa-bars.fa-fw 
+                    b
+                      span Class #{klass.name}
+                    span.fa.arrow
+                  ul.nav.nav-second-level aria-expanded="#{klass == @klass}"
+                    li
+                      a href="/class/#{klass.id}/desc" Description
+                    li
+                      a href="/class/#{klass.id}/part" Participants
+                    li
+                      a href="#"
+                        span Lessons
+                        span.fa.arrow
+                      ul.nav.nav-third-level
+                        - klass.lessons.each do |l|
+                          li
+                            a href="/lesson/#{l.id}" Lesson #{l.name}
+      #page-wrapper
+        = yield
+        /! /.col-lg-12
+        /! /.row
+    / nav.navbar.navbar-default.navbar-static-top
+    / .row
+    /   .main
+    /     .col-xs-3
+    /       ul.nav.nav-pills.nav-stacked
+    /         - Klass.find_each.with_index do |klass, i|
+    /           li role="tab" class="#{(i == 0) ? "active" : ""}"
+    /             a href="#cls-#{klass.id}" data-toggle="tab" Class #{klass.name}
+    /     .col-xs-9.tab-content
+    /       - Klass.find_each.with_index do |klass, i|
+    /         .tab-pane role="tabpanel" class="#{(i == 0) ? "active" : ""}" id="cls-#{klass.id}"
+    /           p Instructor #{klass.instructors.pluck(:name).join(",")}
+    /           p Assistant #{klass.assistants.pluck(:name).join(",")}
+    /           ul.nav.nav-tabs.nav-justified
+    /             li.active role="tab"
+    /               a href="#cls-#{klass.id}-description" data-toggle="tab" Description
+    /             li role="tab"
+    /               a href="#cls-#{klass.id}-participants" data-toggle="tab" Participants
+    /             li role="tab"
+    /               a href="#cls-#{klass.id}-lessons" data-toggle="tab" Lessons
+    /           .tab-content
+    /             .tab-pane.active role="tabpanel" id="cls-#{klass.id}-description"
+    /               p
+    /               p = klass.description
+    /             .tab-pane role="tabpanel" id="cls-#{klass.id}-participants"
+    /               - klass.students.pluck(:name).each do |n|
+    /                 p = n
+    /             .tab-pane role="tabpanel" id="cls-#{klass.id}-lessons"
+    /               - klass.lessons.each do |l|
+    /                 p = l.name
+    /                 - l.images.each do |i|
+    /                   = image_tag i
+
+
+
+    / .container
+    /   - unless @no_gnb
+    /     .row.gnb
+    /       h2 Progressive Chalkboard Recorder
+    /       .pull-right
+    /         a.btn.btn-success.mgr10 href="/login" Login
+    /         a.btn.btn-info Register
+
+coffee:
+  $ ->
+    $('#side-menu').metisMenu()
