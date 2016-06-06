@@ -1,5 +1,3 @@
-require 'zip'
-
 class LessonController < ApplicationController
   before_action :find_lesson, except: [:create, :test]
   def find_lesson
