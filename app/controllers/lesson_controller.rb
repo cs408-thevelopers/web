@@ -17,9 +17,9 @@ class LessonController < ApplicationController
     end
     redirect_to "/lesson/#{l.id}"
   end
-  
+
   def update
   end
-  
+
 end
 
