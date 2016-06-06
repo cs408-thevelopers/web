@@ -32,6 +32,7 @@ gem 'pry-rails'
 gem 'bcrypt', '~> 3.1.7'
 gem "font-awesome-rails"
 gem 'pjax_rails'
+gem 'rubyzip'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

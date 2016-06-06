@@ -1,0 +1,5 @@
+= form_tag "/lesson/create", multipart: true
+  = text_field_tag "klass_id", nil, class:"form-control"
+  = text_field_tag "name", nil, class:"form-control"
+  = file_field_tag "file"
+  = submit_tag

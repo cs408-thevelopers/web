@@ -55,8 +55,11 @@ Rails.application.routes.draw do
   #   end
   root 'main#index'
   get 'login' => 'main#login'  
+  get 'logout' => 'main#logout'  
   get 'class/:id/' => 'klass#desc'
   get 'class/:id/desc' => 'klass#desc'
   get 'class/:id/part' => 'klass#part'
-  get 'lesson/:id' => 'lesson#index'
+  get 'lesson/:id' => 'lesson#index', constraints: { id: /\d+/ }
+  post 'lesson/create' => 'lesson#create'
+  get 'lesson/test' => 'lesson#test'
 end

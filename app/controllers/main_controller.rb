@@ -5,7 +5,12 @@ class MainController < ApplicationController
   end
 
   def login
-    @no_gnb = true
+    render layout: false
+  end
+
+  def logout
+    session[:user] = nil
+    redirect_to "/"
   end
   
 end

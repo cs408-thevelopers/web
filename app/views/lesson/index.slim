@@ -1,5 +1,11 @@
 .row
   .col-lg-12
-    p = @lesson.name
-    - @lesson.images.each do |i|
-      = image_tag i
+    .galleria
+      - @lesson.images.each do |i|
+        = image_tag i
+
+- content_for :script do
+  coffee:
+    $ ->
+      Galleria.loadTheme '/themes/classic/galleria.classic.min.js'
+      Galleria.run '.galleria'
