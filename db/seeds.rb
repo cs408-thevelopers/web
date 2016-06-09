@@ -17,7 +17,8 @@
 # end
 
 
-k = Klass.create name: "CS900", description: "Ultimate CS Class"
+k = Klass.create name: "CS900", short_desc: "Ultimate CS Class", long_desc: "Lorem Ipsum Dolor Amet"
+
 
 # 20.times do |k|
 #   name = randname
