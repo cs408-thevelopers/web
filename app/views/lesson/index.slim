@@ -3,6 +3,12 @@
     .galleria
       - @lesson.images.each do |i|
         = image_tag i
+  .col-lg-10
+  .col-lg-2
+    -@lesson.pdfs.each do |pdf|
+      a.btn.btn-success href="/images/#{pdf}" Download as PDF
+
+
 
 - content_for :script do
   coffee:
